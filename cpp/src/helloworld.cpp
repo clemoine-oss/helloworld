@@ -1,4 +1,12 @@
-// 01_helloworld.cpp
+/**
+ * @file helloworld.cpp
+ * @author Cliff Lemoine (clemoine@proton.me)
+ * @brief First c-plus-plus I've written in a long time...
+ * @version 0.2
+ * @date 2026-11-08
+ * @copyright Copyright (c) 2026
+ *
+ */
 
 import std;
 
