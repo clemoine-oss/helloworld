@@ -7,9 +7,9 @@ CXXFLAGS = -Wno-reserved-module-identifier
 SRCDIR = src
 INCDIR = include
 BUILDDIR = build
-STDLIB_PCMS = $(INCDIR)/std.pcm $(INCDIR)/std.compat.pcm
+#STDLIB_PCMS = $(INCDIR)/std.pcm $(INCDIR)/std.compat.pcm
+STDLIB_PCMS = $(INCDIR)/std.pcm
 TARGET_EXE = hellocpp
-SOURCES = helloworld.cpp
 
 # rules
 
@@ -27,12 +27,12 @@ $(SRCDIR) :
 	@echo "Source directory $(SRCDIR) does not exist"
 	mkdir -p $(SRCDIR)
 
-$(TARGET_EXE) : $(SRCDIR)/$(SOURCES) $(STDLIB_PCMS)
-		$(CXX) $(CPPFLAGS) $(CXXFLAGS) -fmodule-file=std=$(INCDIR)/std.pcm $(SRCDIR)/$(SOURCES) -o $(BUILDDIR)/$(TARGET_EXE)
+$(TARGET_EXE) : $(SRCDIR)/helloworld.cpp $(STDLIB_PCMS)
+		$(CXX) $(CPPFLAGS) $(CXXFLAGS) -fmodule-file=std=$(INCDIR)/std.pcm $(SRCDIR)/helloworld.cpp -o $(BUILDDIR)/$(TARGET_EXE)
 
 $(STDLIB_PCMS) :  
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) --precompile -o $(INCDIR)/std.pcm /usr/share/libc++/v1/std.cppm
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -fmodule-file=std=$(INCDIR)/std.pcm --precompile -o $(INCDIR)/std.compat.pcm /usr/share/libc++/v1/std.compat.cppm
+#	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -fmodule-file=std=$(INCDIR)/std.pcm --precompile -o $(INCDIR)/std.compat.pcm /usr/share/libc++/v1/std.compat.cppm
 
 
 # other standard targets
@@ -48,6 +48,3 @@ check :
 
 dist : 
 	@echo "target 'dist' is no-op"
-
-test : 
-	@echo "target 'test' is no-op"
